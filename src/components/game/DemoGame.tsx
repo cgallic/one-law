@@ -45,8 +45,8 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
   const [consequence, setConsequence] = useState<DecisionOption | null>(null);
   const [muted, setMuted] = useState(true);
   const [currentToken, setCurrentToken] = useState(token);
-  const result = useMemo(() => replayWorld(choices, constitution, seed, compilation?.factionNames), [choices, compilation, constitution, seed]);
   const crises = useMemo(()=>adaptCrises(law,compilation),[law,compilation]);
+  const result = useMemo(() => replayWorld(choices, constitution, seed, compilation?.factionNames,crises), [choices, compilation, constitution, seed,crises]);
   const crisis = crises[choices.length];
   const complete = choices.length === crises.length;
   const disputedTerm = compilation?.ambiguousTerms[choices.length % compilation.ambiguousTerms.length] || crisis?.disputedTerm;
