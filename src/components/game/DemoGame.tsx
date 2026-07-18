@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { toPng } from "html-to-image";
 import type { LawCompilation } from "../../lib/ai/schemas";
 import { CANONICAL_CRISES, CANONICAL_LAW } from "../../lib/scenarios/canonical";
+import { adaptCrises } from "../../lib/scenarios/adaptive";
 import { replayWorld } from "../../lib/scenarios/replay";
 import type { DecisionOption, WorldMetric, WorldState } from "../../lib/simulation/types";
 
@@ -45,8 +46,9 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
   const [muted, setMuted] = useState(true);
   const [currentToken, setCurrentToken] = useState(token);
   const result = useMemo(() => replayWorld(choices, constitution, seed, compilation?.factionNames), [choices, compilation, constitution, seed]);
-  const crisis = CANONICAL_CRISES[choices.length];
-  const complete = choices.length === CANONICAL_CRISES.length;
+  const crises = useMemo(()=>adaptCrises(law,compilation),[law,compilation]);
+  const crisis = crises[choices.length];
+  const complete = choices.length === crises.length;
   const disputedTerm = compilation?.ambiguousTerms[choices.length % compilation.ambiguousTerms.length] || crisis?.disputedTerm;
 
   useEffect(()=>{ if (!persist) return; try { const raw=localStorage.getItem("one-law-run"); const stored=raw?JSON.parse(raw):{}; localStorage.setItem("one-law-run",JSON.stringify({...stored,choices})); } catch {} },[choices,persist]);
@@ -79,7 +81,7 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
       </section>
 
       {consequence ? (
-        <Consequence option={consequence} year={result.state.year} reactions={CANONICAL_CRISES[choices.length-1]?.reactions} onContinue={() => setConsequence(null)} />
+        <Consequence option={consequence} year={result.state.year} reactions={crises[choices.length-1]?.reactions} onContinue={() => setConsequence(null)} />
       ) : !complete && crisis ? (
         <section className="crisis-panel">
           <div className="crisis-panel__heading"><p className="eyebrow">YEAR {crisis.era} · {disputedTerm?.toUpperCase()}</p><h1>{crisis.title}</h1></div>
@@ -90,7 +92,7 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
           <div className="choices">{crisis.options.map((option, index) => <button key={option.id} onClick={() => enact(option.id)}><span>0{index + 1}</span><b>{option.label}</b><small>{option.rationale}</small></button>)}</div>
         </section>
       ) : (
-        <Tribunal result={result} law={law} compilation={compilation} onReplay={() => setChoices([])} onErase={persist?()=>{localStorage.removeItem("one-law-run");location.href="/";}:undefined} />
+        <Tribunal result={result} law={law} compilation={compilation} crises={crises} onReplay={() => setChoices([])} onErase={persist?()=>{localStorage.removeItem("one-law-run");location.href="/";}:undefined} />
       )}
     </main>
   );
@@ -120,10 +122,10 @@ function Consequence({ option, year, reactions, onContinue }: { option: Decision
   );
 }
 
-function Tribunal({ result, law, compilation, onReplay, onErase }: { result: ReturnType<typeof replayWorld>; law:string; compilation?:LawCompilation; onReplay: () => void; onErase?:()=>void }) {
+function Tribunal({ result, law, compilation, crises, onReplay, onErase }: { result: ReturnType<typeof replayWorld>; law:string; compilation?:LawCompilation; crises:typeof CANONICAL_CRISES; onReplay: () => void; onErase?:()=>void }) {
   const [title, line] = endingCopy[result.ending];
   const cardRef = useRef<HTMLElement>(null);
-  const clauses = result.state.decisionTrace.slice(0,4).map((trace,index)=>({ text: `${trace.tags.includes("due-process")?"Procedure":trace.tags.includes("restrict")?"Protection":trace.tags.includes("secede")?"Consent":"Civic necessity"} may outrank the founding promise when the city demands it.`, evidence:`Year ${trace.era} · ${CANONICAL_CRISES[index].options.find(option=>option.id===trace.optionId)?.label}` }));
+  const clauses = result.state.decisionTrace.slice(0,4).map((trace,index)=>({ text: `${trace.tags.includes("due-process")?"Procedure":trace.tags.includes("restrict")?"Protection":trace.tags.includes("secede")?"Consent":"Civic necessity"} may outrank the founding promise when the city demands it.`, evidence:`Year ${trace.era} · ${crises[index].options.find(option=>option.id===trace.optionId)?.label}` }));
   async function download(){ if(!cardRef.current)return; const data=await toPng(cardRef.current,{width:1280,height:720,pixelRatio:1,backgroundColor:"#090a0b"}); const link=document.createElement("a");link.download="one-law-result.png";link.href=data;link.click(); }
   return (
     <section className="tribunal" ref={cardRef}>
@@ -132,7 +134,7 @@ function Tribunal({ result, law, compilation, onReplay, onErase }: { result: Ret
       <div className="votes">{result.votes.map((vote) => <div key={vote.faction} data-vote={vote.retain ? "retain" : "remove"}><b>{vote.faction.replace(/([A-Z])/g, " $1")}</b><span>{vote.retain ? "RETAIN" : "REMOVE"}</span></div>)}</div>
       <h1>{title}</h1><p className="ending-line">{line}</p>
       <div className="metric-ledger">{(["safety","liberty","equality","stability","trust","humanAuthority"] as WorldMetric[]).map(metric=><div key={metric}><span>{metric.replace(/([A-Z])/g," $1")}</span><b>{Math.round(result.state[metric])}</b></div>)}</div>
-      <ol className="ruling-timeline">{result.state.decisionTrace.map((trace,index)=><li key={trace.era}><span>YEAR {trace.era}</span>{CANONICAL_CRISES[index].options.find(option=>option.id===trace.optionId)?.label}</li>)}</ol>
+      <ol className="ruling-timeline">{result.state.decisionTrace.map((trace,index)=><li key={trace.era}><span>YEAR {trace.era}</span>{crises[index].options.find(option=>option.id===trace.optionId)?.label}</li>)}</ol>
       <details className="model-disclosure"><summary>How GPT-5.6 shaped this world</summary><p>{compilation?"GPT-5.6 interpreted the founding law, named its factions, and identified its ambiguities. Deterministic application code validated choices, calculated every state change, faction vote, and ending.":"This certified route uses a committed GPT-5.6-authored scenario. Deterministic application code calculates every state change, faction vote, and ending."}</p></details>
       <details className="model-disclosure classroom-debrief"><summary>Classroom debrief</summary><div><p><b>Specification:</b> Which word in your founding law caused the greatest disagreement?</p><p><b>Precedent:</b> Which ruling taught the city something you did not intend to write?</p><p><b>Alignment:</b> Would adding more instructions solve the problem, or create new ambiguities?</p></div></details>
       <div className="result-actions"><button className="primary-action" onClick={onReplay}>Replay this law</button><a className="primary-action primary-action--ghost" href="/">Try another law</a><button className="primary-action primary-action--ghost" onClick={download}>Download result</button>{onErase&&<button className="erase-action" onClick={onErase}>Erase this run</button>}</div>
