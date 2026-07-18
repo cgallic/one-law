@@ -42,7 +42,15 @@ Next.js 16, React 19, TypeScript, React Three Fiber, Three.js, OpenAI JavaScript
 
 ## Codex collaboration
 
-The accepted PRD was retrieved through a Codex/Brain handoff. Codex implemented the deterministic kernel and validation vocabulary, tests, cached scenario, React UI, Three.js city, custom compilation route, signed persistence, recovery, accessibility baseline, procedural sound, evidence-bound result, and export flow. Codex was also used for production builds and browser acceptance.
+All repository work began during the July 13–21, 2026 submission period; the dated Git history and primary Codex thread provide the evidence. The accepted PRD was retrieved through a Codex/Brain handoff.
+
+Codex accelerated the project by implementing the deterministic kernel and bounded option validator, writing the test suite, scaffolding the Next.js routes, iterating on the Three.js civilization, diagnosing browser behavior, building signed recovery, and connecting GitHub to Vercel. The primary thread also performed repeated production builds and full browser runs.
+
+The entrant retained the key product and design decisions: the one-sentence premise, Education track, fixed five-crisis dramatic arc, deterministic/model boundary, six faction archetypes, five ending families, evidence-bound shadow constitution, brutalist civic-maquette direction, and the later decision to replace graph-like output with a Civilization-inspired inhabited world.
+
+GPT-5.6 is indispensable at the point where fixed application logic cannot substitute for semantic interpretation: it turns an arbitrary player law into protected subjects, verbs, ambiguities, exception vectors, contextual faction identities, and bounded action alignments. Those alignments influence all five deterministic decisions and the final tribunal. The model cannot mutate state or select the ending.
+
+See [Competition Compliance](docs/COMPETITION-COMPLIANCE.md) for the rule-by-rule audit and [Third-party Notices](docs/THIRD-PARTY-NOTICES.md) for dependency licensing.
 
 ## Submission status
 
