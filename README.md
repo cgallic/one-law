@@ -46,6 +46,12 @@ The accepted PRD was retrieved through a Codex/Brain handoff. Codex implemented 
 
 ## Submission status
 
-Built after July 13, 2026 for OpenAI Build Week. Before Devpost submission, add the public deployment URL, public repository URL, demonstration video, and Codex `/feedback` Session ID here.
+Built after July 13, 2026 for OpenAI Build Week.
+
+- Repository: https://github.com/cgallic/one-law
+- Public game: https://one-law.vercel.app
+- Certified judge route: https://one-law.vercel.app/demo
+
+Before Devpost submission, add the demonstration video and Codex `/feedback` Session ID here.
 
 No emergency scope cuts have been invoked.
