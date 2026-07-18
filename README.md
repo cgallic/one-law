@@ -27,6 +27,8 @@ GPT-5.6 compiles the player's untrusted one-sentence law into a structured const
 
 GPT-5.6 does **not** run the game simulation. Deterministic TypeScript code owns metric changes, faction trust, public support, contradiction, population, final votes, ending selection, replay, and evidence references. The browser submits only an option ID to a server route that verifies a signed run token before applying the ruling.
 
+The production default uses GPT-5.6 Luna once to compile the constitution through Vercel AI Gateway's short-lived OIDC authentication. Five evolving crisis-language calls use the less expensive GPT-5.4 mini while remaining constrained by the GPT-5.6 constitution and deterministic causal validator. Calls are bounded to 1,200–1,400 output tokens; `/demo` makes none. This keeps GPT-5.6 central without charging frontier-model rates for every era.
+
 ## Reliability and privacy
 
 - No account or database.
