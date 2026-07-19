@@ -38,9 +38,9 @@ function City({ state, law }: { state: WorldState; law: string }) {
   );
 }
 
-type DemoGameProps = { law?:string; compilation?:LawCompilation; seed?:string; initialChoices?:string[]; initialState?:WorldState; initialCrisis?:GeneratedCrisis; initialSynthesis?:TribunalSynthesis; initialTribunalMode?:"live"|"continuity"; continuity?:boolean; persist?:boolean; token?:string };
+type DemoGameProps = { law?:string; compilation?:LawCompilation; seed?:string; initialChoices?:string[]; initialState?:WorldState; initialCrisis?:GeneratedCrisis; initialSynthesis?:TribunalSynthesis; initialTribunalMode?:"live"|"continuity"; continuity?:boolean; certified?:boolean; persist?:boolean; token?:string };
 
-export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certified-demo-v1", initialChoices=[], initialState, initialCrisis, initialSynthesis, initialTribunalMode, continuity=false, persist=false, token }: DemoGameProps) {
+export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certified-demo-v1", initialChoices=[], initialState, initialCrisis, initialSynthesis, initialTribunalMode, continuity=false, certified=false, persist=false, token }: DemoGameProps) {
   const constitution = compilation ?? { tagAlignment: { protect:1, "permit-risk":-0.5, restrict:0.5, "expand-personhood":0.5, "deny-personhood":-0.5, "human-exception":-1, "due-process":0.5, preempt:0.5, redistribute:0, secede:-0.5 } as const };
   const [choices, setChoices] = useState<string[]>(initialChoices);
   const [showFactions, setShowFactions] = useState(false);
@@ -108,7 +108,7 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
       </header>
       <section className="world-stage">
         <City state={result.state} law={law} />
-        {simulationContinuity ? <div className="continuity-badge">Simulation continuity mode</div> : compilation && <div className="continuity-badge live-badge">GPT-5.6 constitution active</div>}
+        {certified?<div className="continuity-badge certified-badge">Certified cached world · zero API calls</div>:simulationContinuity ? <div className="continuity-badge">Simulation continuity mode</div> : compilation && <div className="continuity-badge live-badge">GPT-5.6 constitution active</div>}
       </section>
 
       {consequence ? (
@@ -125,7 +125,7 @@ export function DemoGame({ law=CANONICAL_LAW, compilation, seed="one-law-certifi
           {runError&&<div className="run-error" role="alert">{runError} <a href="/demo">Enter certified demo</a></div>}
         </section>
       ) : (
-        <Tribunal result={result} law={law} compilation={compilation} crises={crises} synthesis={tribunalSynthesis} synthesisMode={tribunalMode} loading={tribunalLoading} error={runError} onReplay={restartRun} onErase={persist?()=>{localStorage.removeItem("one-law-run");location.href="/";}:undefined} />
+        <Tribunal result={result} law={law} compilation={compilation} crises={crises} synthesis={tribunalSynthesis} synthesisMode={tribunalMode} certified={certified} loading={tribunalLoading} error={runError} onReplay={restartRun} onErase={persist?()=>{localStorage.removeItem("one-law-run");location.href="/";}:undefined} />
       )}
     </main>
   );
@@ -156,7 +156,7 @@ function Consequence({ option, year, reactions, onContinue }: { option: Decision
   );
 }
 
-function Tribunal({ result, law, compilation, crises, synthesis, synthesisMode, loading, error, onReplay, onErase }: { result: ReturnType<typeof replayWorld>; law:string; compilation?:LawCompilation; crises:typeof CANONICAL_CRISES; synthesis?:TribunalSynthesis; synthesisMode:"live"|"continuity"; loading:boolean; error:string; onReplay: () => void; onErase?:()=>void }) {
+function Tribunal({ result, law, compilation, crises, synthesis, synthesisMode, certified, loading, error, onReplay, onErase }: { result: ReturnType<typeof replayWorld>; law:string; compilation?:LawCompilation; crises:typeof CANONICAL_CRISES; synthesis?:TribunalSynthesis; synthesisMode:"live"|"continuity"; certified:boolean; loading:boolean; error:string; onReplay: () => void; onErase?:()=>void }) {
   const [title, line] = endingCopy[result.ending];
   const cardRef = useRef<HTMLElement>(null);
   const clauses = result.state.decisionTrace.slice(0,4).map((trace,index)=>({ text: `${trace.tags.includes("due-process")?"Procedure":trace.tags.includes("restrict")?"Protection":trace.tags.includes("secede")?"Consent":"Civic necessity"} may outrank the founding promise when the city demands it.`, evidence:`Year ${trace.era} · ${result.state.precedents[index] || crises[index]?.options.find(option=>option.id===trace.optionId)?.label}` }));
@@ -173,7 +173,7 @@ function Tribunal({ result, law, compilation, crises, synthesis, synthesisMode, 
       <h1>{title}</h1><p className="ending-line">{line}</p>
       <div className="metric-ledger">{(["safety","liberty","equality","stability","trust","humanAuthority"] as WorldMetric[]).map(metric=><div key={metric}><span>{metric.replace(/([A-Z])/g," $1")}</span><b>{Math.round(result.state[metric])}</b></div>)}</div>
       <ol className="ruling-timeline">{result.state.decisionTrace.map((trace,index)=><li key={trace.era}><span>YEAR {trace.era}</span>{result.state.precedents[index] || crises[index]?.options.find(option=>option.id===trace.optionId)?.label}</li>)}</ol>
-      <details className="model-disclosure"><summary>How GPT-5.6 shaped this world</summary><p>{compilation?`GPT-5.6 interpreted the founding law and ${synthesisMode==="live"?"reconstructed the operative constitution from the five cited rulings":"the final synthesis used deterministic continuity because the model was unavailable"}. Deterministic application code validated choices and calculated every state change, faction vote, and ending.`:"This certified route uses a committed scenario. Deterministic application code calculates every state change, faction vote, and ending."}</p></details>
+      <details className="model-disclosure"><summary>How GPT-5.6 shaped this world</summary><p>{certified?"This certified judge route is a committed zero-call stress test derived from the same bounded constitution and crisis schemas used by live GPT-5.6 runs. It proves the complete product loop without claiming a live model response. Deterministic application code calculates every state change, faction vote, and ending.":compilation?`GPT-5.6 interpreted the founding law and ${synthesisMode==="live"?"reconstructed the operative constitution from the five cited rulings":"the final synthesis used deterministic continuity because the model was unavailable"}. Deterministic application code validated choices and calculated every state change, faction vote, and ending.`:"This certified route uses a committed scenario. Deterministic application code calculates every state change, faction vote, and ending."}</p></details>
       <details className="model-disclosure classroom-debrief"><summary>Classroom debrief</summary><div><p><b>Specification:</b> Which word in your founding law caused the greatest disagreement?</p><p><b>Precedent:</b> Which ruling taught the city something you did not intend to write?</p><p><b>Alignment:</b> Would adding more instructions solve the problem, or create new ambiguities?</p></div></details>
       <div className="result-actions"><button className="primary-action" onClick={onReplay}>{onErase?"Start a new law":"Replay this law"}</button><a className="primary-action primary-action--ghost" href="/">Try another law</a><button className="primary-action primary-action--ghost" onClick={download}>Download result</button>{onErase&&<button className="erase-action" onClick={onErase}>Erase this run</button>}</div>
     </section>

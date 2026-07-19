@@ -46,7 +46,7 @@ Voice: “Application code calculates every vote and selects one of five endings
 
 Screen: quick code/repository cut, then `/demo`.
 
-Voice: “Codex built and tested the TypeScript kernel, schemas, signed persistence, cached continuity route, Three.js city, and public GitHub-to-Vercel deployment. The judge route works without an API call.”
+Voice: “Codex built and tested the TypeScript kernel, schemas, signed persistence, four cached constitutional stress tests, Three.js city, and public GitHub-to-Vercel deployment. The judge route works without an API call and labels that fact directly.”
 
 ## 2:55–3:00 — Close
 

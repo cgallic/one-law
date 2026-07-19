@@ -14,7 +14,7 @@ copy .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. `/play` is the custom-law experience and `/demo` is the fully cached judge route. The certified demonstration does not need an API key.
+Open `http://localhost:3000`. `/play` is the custom-law experience and `/demo` offers four fully cached judge worlds covering harm, literal touch/marriage, conscious freedom, and resource need. The certified demonstrations do not need an API key.
 
 ```bash
 npm test
@@ -36,7 +36,7 @@ The production default uses GPT-5.6 Luna to compile the constitution and synthes
 - Server state is HMAC-signed with `GAME_STATE_SECRET`.
 - The API key remains server-only.
 - Custom input is normalized and screened for injection patterns and disallowed content.
-- `/demo` is committed fallback content and remains playable without OpenAI access.
+- `/demo` contains four clearly labeled, committed zero-call stress tests and remains playable without OpenAI access.
 
 ## Technology
 

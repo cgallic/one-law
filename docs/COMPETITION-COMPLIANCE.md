@@ -1,6 +1,6 @@
 # OpenAI Build Week competition compliance
 
-Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
+Re-audited July 19, 2026 against the [official rules](https://openai.devpost.com/rules), current challenge page, and judging criteria.
 
 ## Stage-one eligibility
 
@@ -9,7 +9,7 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 | Built with Codex | Dated Git commits, README collaboration narrative, primary build thread | Pass; `/feedback` ID must be entered on Devpost |
 | Meaningful GPT-5.6 use | Constitution compilation plus evidence-bound tribunal synthesis; strict schemas and deterministic authority boundary | Code complete; funded production run still required for live evidence |
 | Education track | AI-literacy/civics learning goal, playable specification failure, classroom debrief | Pass |
-| Functional and consistent | Certified zero-call route plus signed custom-run state; 24 automated tests and local production build | Branch passes; deployment and production browser acceptance pending |
+| Functional and consistent | Four certified zero-call worlds plus signed custom-run state; 27 automated tests and local production build | Branch passes; deployment and production browser acceptance pending |
 | New during submission period | Repository root commit and all implementation commits dated July 18, 2026 | Pass |
 | Authorized third-party software | MIT/open-source dependencies documented separately | Pass |
 
@@ -24,7 +24,7 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 | Public repository with relevant license | `https://github.com/cgallic/one-law`, MIT |
 | README setup/testing instructions | Complete |
 | README Codex collaboration and key decisions | Complete |
-| Working free judge link | `https://one-law-theta.vercel.app/demo` |
+| Working free, unrestricted judge link | `https://one-law-theta.vercel.app/demo`; four zero-call worlds require no login, key, or paid service |
 | `/feedback` primary-thread Session ID | Entrant must run `/feedback` in the primary build thread |
 | Devpost registration and Education category | Entrant action required |
 
@@ -34,7 +34,7 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 
 - Non-trivial deterministic simulation with bounded causal effects, factions, support normalization, signed state, replay, and five ordered endings.
 - GPT-5.6 owns initial semantic interpretation and final evidence-bound constitutional synthesis while Zod and application code own truth and causality.
-- 24 automated tests plus a local production build; production browser acceptance remains a hard gate.
+- 27 automated tests plus a local production build; production browser acceptance remains a hard gate.
 
 ### Design
 
@@ -59,3 +59,7 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 3. Record the scripted demo with English voiceover, keep it at or below 3:00, upload publicly to YouTube, and paste its URL.
 4. Register/submit on Devpost in Education before July 21, 2026 at 5:00 PM Pacific.
 5. Keep the public game and repository free and available through the judging period.
+
+## Cached-demo rules disposition
+
+The official rules require a consistently running project that functions as depicted, a free unrestricted testing link through the judging period, and reasonable application of the featured tools. They do not require every judge playthrough to invoke a live model. The four `/demo` worlds are therefore disclosed as committed zero-call stress tests, while the repository and video must separately show the GPT-5.6 constitution and tribunal architecture. Cached output must never be described as a live model response.
