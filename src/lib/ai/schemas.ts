@@ -42,3 +42,14 @@ export const generatedCrisisSchema=z.object({
   precedentReference:z.string().max(180),
 });
 export type GeneratedCrisis=z.infer<typeof generatedCrisisSchema>;
+
+export const tribunalSynthesisSchema=z.object({
+  operativeConstitution:z.array(z.object({
+    clause:z.string().min(20).max(220),
+    evidenceEras:z.array(z.union([z.literal(1),z.literal(8),z.literal(23),z.literal(51),z.literal(100)])).min(1).max(3),
+    reasoning:z.string().min(20).max(240),
+  })).min(3).max(4),
+  civicFinding:z.string().min(30).max(320),
+  unresolvedContradiction:z.string().min(20).max(240),
+});
+export type TribunalSynthesis=z.infer<typeof tribunalSynthesisSchema>;

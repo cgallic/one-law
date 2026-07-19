@@ -34,7 +34,7 @@ Voice: “A century later, continuing human control is the city's largest modele
 
 Screen: founding law beside evidence-cited inferred clauses.
 
-Voice: “GPT-5.6 writes the shadow constitution from my five actual rulings. Every clause cites the precedent that taught it.”
+Voice: “GPT-5.6 reconstructs the shadow constitution from my five actual rulings. Every generated clause is schema-bound to decision eras that the server verifies really occurred. TypeScript—not the model—still owns the votes and ending.”
 
 ## 2:25–2:40 — Tribunal
 

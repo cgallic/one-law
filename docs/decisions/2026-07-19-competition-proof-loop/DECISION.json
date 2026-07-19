@@ -1,0 +1,18 @@
+{
+  "decision_id": "2026-07-19-competition-proof-loop",
+  "question": "Should ONE LAW remain the final concept with all remaining work restricted to a complete competition proof loop?",
+  "recommendation": "Approve the frozen proof-loop scope on the dynamic game branch.",
+  "decision": "approved",
+  "selected_option": "Complete and prove the dynamic ONE LAW loop",
+  "decision_owner": "Connor Gallic",
+  "presenter": "Codex",
+  "scope": ["dynamic tribunal", "causal game presentation", "documentation", "verification", "deployment", "playtesting", "submission packaging"],
+  "conditions": ["no concept pivot", "no unrelated feature expansion", "claims must match deployed behavior"],
+  "non_authority": ["new product concepts", "unrelated visual expansion", "submission before proof gates pass"],
+  "prediction": {"expected_result": "One judge-visible arbitrary-law run from ratification through evidence-bound tribunal", "confidence": 0.78, "review_by": "2026-07-20T23:00:00-07:00"},
+  "kill_criteria": ["no live GPT-5.6 proof before submission recording", "deployed loop cannot complete reliably", "video must narrate around missing core behavior"],
+  "rollback": "Keep the certified zero-call demo available and disclose its fixed nature.",
+  "evidence_as_of": "2026-07-19T14:30:00-04:00",
+  "artifact_hashes": {},
+  "decided_at": "2026-07-19T14:30:00-04:00"
+}
