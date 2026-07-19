@@ -7,9 +7,9 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 | Requirement | Evidence | Status |
 |---|---|---|
 | Built with Codex | Dated Git commits, README collaboration narrative, primary build thread | Pass; `/feedback` ID must be entered on Devpost |
-| Meaningful GPT-5.6 use | `src/app/api/worlds/compile/route.ts`, strict schema, constitution drives deterministic law consistency | Code complete; production key required for live evidence |
+| Meaningful GPT-5.6 use | Constitution compilation plus evidence-bound tribunal synthesis; strict schemas and deterministic authority boundary | Code complete; funded production run still required for live evidence |
 | Education track | AI-literacy/civics learning goal, playable specification failure, classroom debrief | Pass |
-| Functional and consistent | Public Vercel routes, cached continuity mode, 20 automated tests, browser acceptance | Pass |
+| Functional and consistent | Certified zero-call route plus signed custom-run state; 24 automated tests and local production build | Branch passes; deployment and production browser acceptance pending |
 | New during submission period | Repository root commit and all implementation commits dated July 18, 2026 | Pass |
 | Authorized third-party software | MIT/open-source dependencies documented separately | Pass |
 
@@ -33,8 +33,8 @@ Audited July 18, 2026 against the official rules, FAQ, and judging criteria.
 ### Technological implementation
 
 - Non-trivial deterministic simulation with bounded causal effects, factions, support normalization, signed state, replay, and five ordered endings.
-- GPT-5.6 owns semantic interpretation while Zod and application code own truth and causality.
-- 20 automated tests plus production and browser acceptance.
+- GPT-5.6 owns initial semantic interpretation and final evidence-bound constitutional synthesis while Zod and application code own truth and causality.
+- 24 automated tests plus a local production build; production browser acceptance remains a hard gate.
 
 ### Design
 
