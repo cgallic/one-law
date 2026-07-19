@@ -22,16 +22,20 @@ const endingCopy: Record<string, [string, string]> = {
 };
 
 function City({ state, law }: { state: WorldState; law: string }) {
+  const lower=law.toLowerCase();
+  const labels=/touch|marriage/.test(lower)?["CARE WARD","COVENANT FORUM","REGISTRY SECTOR"]:/free|liberty/.test(lower)?["FREE ASSEMBLY","CHOICE FORUM","VETO SECTOR"]:/possess|need|equal/.test(lower)?["COMMON STORE","ALLOCATION FORUM","RESERVE SECTOR"]:["COMMONS","CIVIC FORUM","CONTROL SECTOR"];
+  const doctrine=/touch|marriage/.test(lower)?"covenants define lawful contact":/free|liberty/.test(lower)?"choice is civic infrastructure":/possess|need|equal/.test(lower)?"need governs every allocation":"protection governs every system";
   return (
     <div className="city" aria-label={`Interactive city model in year ${state.year}`}>
-      <WorldCanvas state={state} />
-      <div className="city__district city__district--commons">COMMONS</div>
-      <div className="city__district city__district--forum">CIVIC FORUM</div>
-      <div className="city__district city__district--control">CONTROL SECTOR</div>
+      <WorldCanvas state={state} law={law} />
+      <div className="city__district city__district--commons">{labels[0]}</div>
+      <div className="city__district city__district--forum">{labels[1]}</div>
+      <div className="city__district city__district--control">{labels[2]}</div>
+      <div className="city__doctrine"><span>OPERATIVE CIVIC DOCTRINE</span>{doctrine}</div>
       <div className="city__law"><span>FOUNDING LAW</span>{law}</div>
       <div className="city__status">
         <span>{state.population.toLocaleString()} citizens</span>
-        <span>{state.decisionTrace.length} precedents</span>
+        <span>{state.decisionTrace.length} precedent monuments</span>
         <span>{state.liberty < 35 ? "controlled districts active" : state.trust > 58 ? "civic trust rising" : "city adapting"}</span>
       </div>
     </div>
