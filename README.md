@@ -65,3 +65,8 @@ Built after July 13, 2026 for OpenAI Build Week.
 Before Devpost submission, add the demonstration video and Codex `/feedback` Session ID here.
 
 No emergency scope cuts have been invoked.
+
+
+---
+
+*Built and maintained by [Connor Gallic](https://pr.linkedin.com/in/cgallic) — connect on LinkedIn.*
